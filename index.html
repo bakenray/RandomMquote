@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>随机名言</title>
+    <style>
+        *{margin:0;padding:0;}
+        .container{
+            width:100vw;
+            height:100vh;
+            position: relative;
+            background: pink;
+        }
+        .quote_box{
+            width:500px;
+            height:250px;
+            background:rgba(255,255,255,.9);
+            border-radius:4px;
+            position: absolute;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+            margin:auto;
+            text-align: center;
+            border:1px solid #ccc;
+            box-shadow: 0 5px 25px rgba(211, 97, 97, 0.2);
+            transition: all .8s;
+        }        
+        .quote_box:hover{
+            box-shadow: 0 10px 40px rgba(211, 97, 97, 0.6);
+        }
+        .tuote_text{
+            height:200px;
+            font-size: 20px;
+            padding:0 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ff5454;
+        }
+        .tuote_text>p{
+            line-height: 1.5em;
+            word-break: normal;
+        }
+        .tuote_btn{
+            height:50px;
+        }
+        .tuote_btn>button{
+            border:1px solid #ff5454;;
+            padding:6px 30px;
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            font-size: 16px;
+            color:#ff5454;
+            background:transparent;
+            transition:all .5s;
+        }
+        .tuote_btn>button:hover{
+            box-shadow:0 2px 8px pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="quote_box">
+                <div class="tuote_text">
+                    <p id="elText"></p>
+                </div>
+                <div class="tuote_btn">
+                        <button onclick="newQuote()">刷新</button>
+                </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+
+        function newQuote(){
+            var el = document.getElementById('elText')
+            axios.get('https://v1.hitokoto.cn/?encode=json').then(res=>{
+                console.log(res.data.hitokoto)
+                el.innerHTML =res.data.hitokoto
+            })
+        }
+        newQuote()
+    </script>
+</body>
+</html>
